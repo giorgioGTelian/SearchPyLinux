@@ -50,7 +50,7 @@ class MyDefaults:
         self.workpath = ""
         self.ancient_workdir = False
         self.separators = r'\^\$\*\+\?\{\}\[\]\\\|\(\)\.\-/_ 0123456789'
-        self.ig = "[\^\$\*\+\?\{\}\[\]\\\|\(\)\.\-/_, 0-9]"
+        self.ig = r"[\^\$\*\+\?\{\}\[\]\\\|\(\)\.\-/_, 0-9]"
         self.version = 'qtag vers. C.07'
 
 Defaults = MyDefaults()
