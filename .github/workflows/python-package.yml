@@ -27,6 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install setuptools wheel
         python -m pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
@@ -38,11 +39,14 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - name: Build and publish 
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: pypi-AgEIcHlwaS5vcmcCJDFhMzM5NGNjLTdkNWEtNDEzYi1hNzA0LWFlMGYyYzE3ZWIyYwACKlszLCIwYzA0ZDlkOC04YmEzLTRmNWUtYjc3Zi1iMzgyYzI5ODllMWYiXQAABiAZG609ZhcFAyTCLw7LY_rm0djeYlcHr_AeAO0TTo1CQw
+    - name: Build package
       run: |
         python setup.py sdist bdist_wheel
+    - name: Publish to PyPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }} # This is where you reference the secret
+      run: |
+        pip install twine
         twine upload dist/*
 
