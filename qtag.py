@@ -499,18 +499,18 @@ def delete_single_tag(match, testfilename, filename, tag,linkname):
             index_end += 1
     new_basefilename = testfilename[:index_start] + testfilename[index_end:]
     correct_filename(filename, new_basefilename, linkname)
+    return new_basefilename
 
 
 def try_compile_whole_tag(tag, igb, ige):
-    try:
-        regex = "^(" + tag + ige + ")|" + igb + tag + ige + "|(" + igb + tag + ")$|^(" + tag + ")$"
-        p = re.compile(regex)  # both test_string and testfilename are original, that is, this is a case sensitive check
-    except:
-        tag = re.escape(tag)
-        printout_error('WARNING: invalid REGEX. Reinterpreting symbols as escaped: ' + tag)
-        regex = "^(" + tag + ige + ")|" + igb + tag + ige + "|(" + igb + tag + ")$|^(" + tag + ")$"
-        p = re.compile(regex)
-    return (p)
+     tag = re.escape(tag)
+    igb = re.escape(igb)
+    ige = re.escape(ige)
+    
+    regex = "^(" + tag + ige + ")|" + igb + tag + ige + "|(" + igb + tag + ")$|^(" + tag + ")$"
+    p = re.compile(regex)  # Compile the regex pattern
+
+    return p
 
 
 def cond_check_whole(filename, comp_a,comp_b):
