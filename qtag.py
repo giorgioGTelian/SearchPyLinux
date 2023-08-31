@@ -534,9 +534,9 @@ def delete_single_tag(match, testfilename, filename, tag,linkname):
                     if matching_string[0] != matching_string[1]:  # if == it doesn'matter: ignore case'
                         # and so, we come here only with two equal letters in different case
                         if matching_string[0] == matching_string[0].upper():  # if first is upper, it cannot be separator for second
-                            index_start = match_start()
+                            index_start = match.start()
                         else:
-                            index_start = match_start() + 1
+                            index_start = match.start() + 1
     index_end = index_start + length  # index of first character after the substring matching tag
     if len(testfilename) > index_end:  # len() = last index of string + 1. If it equals x, index x out of range
         if testfilename[index_end] in ' _-\\':
