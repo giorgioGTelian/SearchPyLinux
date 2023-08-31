@@ -324,31 +324,7 @@ def output_filename(fname):		# The first part deals with the printing to scr, th
 		if not os.path.exists(link):
 			os.symlink(targetname,link)
 
-# The following is old version C06, C05
-#    linkname = os.path.join(Defaults.workpath, os.path.basename(fname))	# the choice is to use the basename of the target for the linkname.
-			# The problem is, targets in different dirs may have the same basename...
- #   file_written = False
- #   while not file_written:
- #       try:
- #           os.symlink(targetname, linkname)
- #           file_written = True
- #       except FileExistsError:	# ... and we may end up trying to create several symlinks with the same name
-#            fn = os.path.basename(linkname) # ... which we solve adding underscores (ugly solution)
-  #          if targetname == os.path.abspath(os.path.realpath(linkname)):
-		# linkname is here the name of the already existing link. If it already points to the targetname we are trying to link to, we need not go on.
-		# Needless to say, this should not happen; this code is bad
-#                printout_error("Attempt to add second link to file: " + targetname + "\nLink ignored")
-#                file_written = True
-#            else:
-#                head, tail = os.path.split(linkname)
-		# ...head is Defaults.workpath, tail is basename
- #               linkname = os.path.join(head, '_' + tail)
- #               printout_error(
- #                   "Target above is new but link name is already present:\n" + fn + '\nAdding leading underscore to symlink name: _' + tail)
-		# we might have to do this several times, so we don't create a symlink and reenter the while loop with file_written still false
-#        except:
-#            printout_error("Generic file error " + os.path.basename(fname))
-#            break
+
 
 
 def cond_match(compiled, testfilename, orig_filename, negative):
@@ -426,28 +402,7 @@ def scan_all():  # called by normal search, not by add or delete tags (-n). Loop
 					match_number += 1		
 		if not Defaults.recursive:
 			break
-#    for filename in glob.iglob(Defaults.userpath + '**',
-#                               recursive=Defaults.recursive):  # if no userpath, './' (init); if abs., ok, if rel., './' added in getoptions
-#        total_number += 1
-#        if filename == Defaults.userpath:
-#            continue
-#        if Defaults.workpathdir in os.path.dirname(
-#                filename):  # in case you are writing or have written to workpath, don't scan workpath too
-#            continue
-#        testFilename = filename
-#        if not (os.path.isdir(filename)):
-#            if Defaults.onlydirs:
-#                continue
-#        else:  # if filename is a dir
-#            if Defaults.onlyfiles:
-#                continue
-#        if Defaults.quick and not (os.path.isdir(filename)):  # if quick flag is set, only check the basename
-#            testFilename = os.path.basename(testFilename)
-#        backname = (check_filename(
-#            testFilename))  # ********** crucial line: check the filename, returns filename if check passed or '' else
-#        if backname != "":
-#            output_filename(filename)
-#            match_number += 1
+
 	print()
 	print(match_number, "found     ", total_number, "parsed        'qtag -h' for some help")
 
@@ -610,27 +565,6 @@ def manage_tag_new(tag,action):
 					correct_filename(target_whole_filename, new_base, link_whole_name)
 					counter += 1
 
-# Old version before C07: no recursion needed, glob.iglob based ################################
-#    for linkname in glob.iglob(
-#            os.path.join(Defaults.workpath, '*')):  # now parse all symlinks in working dir -- no recursion here
-#        if os.path.isdir(linkname):
-#            continue  # if a dir name, go on with cycle
-#        target_whole_filename = os.path.realpath(
-#            linkname)  # we need to work on target filename, symlink might have leading underscores etc.
-#        target_basename = os.path.basename(target_whole_filename)  # Just test the bare filename, not the path
-#        result = cond_check_whole(target_basename, comp_case_sens,
-#                                  comp_case_ins)  # we make the actual check, some little log. complexity in it
-#        if result:
-#            if action == 'delete_tag':  # result ok: you del the tag since it's there
-#                delete_single_tag(result, target_basename, target_whole_filename, tag, linkname)
-#                counter += 1
-#                continue
-#        else:
-#            if action == 'add_tag':  # result == none: and so you add the tag since it isn't there
-#                head, tail = os.path.split(target_whole_filename)
-#                new_base = tag + '_' + tail
-#                correct_filename(target_whole_filename, new_base, linkname)
-#                counter += 1
 
 	if action == 'add_tag':
 		print('\nAdded tag "', tag, '" to ', counter, ' file(s)', sep="")
@@ -651,24 +585,28 @@ def print_debug_info():
     print("Defaults.programpath", Defaults.programpath)
     print("new_argv", Defaults.new_argv)
 
-
-Defaults = MyDefaults()
-get_arguments()
-init_writing()
-print()
-print("*******", Defaults.programpath, "*******")
-print()
-if Defaults.set_qtag:
-    set_qtag_command()
-    sys.exit(0)
-if Defaults.new_tag != "":
-    if Defaults.new_tag[0] == ':':
-        manage_tag_new(Defaults.new_tag[1:], 'delete_tag')
+def main():
+    Defaults = MyDefaults()
+    get_arguments()
+    init_writing()
+    print()
+    print("*******", Defaults.programpath, "*******")
+    print()
+    if Defaults.set_qtag:
+        set_qtag_command()
+        sys.exit(0)
+    if Defaults.new_tag != "":
+        if Defaults.new_tag[0] == ':':
+            manage_tag_new(Defaults.new_tag[1:], 'delete_tag')
+        else:
+            manage_tag_new(Defaults.new_tag, 'add_tag')
     else:
-        manage_tag_new(Defaults.new_tag, 'add_tag')
-else:
-    scan_all()
-#if not Defaults.ancient_workdir:
-if Defaults.writing != 'N':
-    os.system("xdg-open " + Defaults.workpath)
-print(Defaults.version)
+        scan_all()
+    #if not Defaults.ancient_workdir:
+    if Defaults.writing != 'N':
+        os.system("xdg-open " + Defaults.workpath)
+    print(Defaults.version)
+
+if __name__ == "__main__":
+    main()
+
