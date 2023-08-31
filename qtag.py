@@ -503,7 +503,7 @@ def delete_single_tag(match, testfilename, filename, tag,linkname):
 
 
 def try_compile_whole_tag(tag, igb, ige):
-     tag = re.escape(tag)
+    tag = re.escape(tag)
     igb = re.escape(igb)
     ige = re.escape(ige)
     
