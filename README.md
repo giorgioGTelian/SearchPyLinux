@@ -1,20 +1,21 @@
 # SearchPyLinux qtag version C.07
 
 ## Overview:
-### qtag is a search tool designed specifically for humans. It allows for searching files and directories based on tags - words or word beginnings - in any order. ### For example, searching with the tag "ari" would match "Aristotle", "my Arist", and even "MyFriendArist", but not "parish".
+### qtag is a search tool designed specifically for humans. It allows for searching files and directories based on tags - words or word beginnings - in any order. <br>
+### For example, searching with the tag "ari" would match "Aristotle", "my Arist", and even "MyFriendArist", but not "parish".
 
 # Features:
-<strong> Tag-based Searching: </strong> Search using tags which are words or word beginnings in any order.
-<strong> Negative Tags: </strong>Using a leading colon with a tag allows for an exclusion search. For instance, searching with the tag ":pdf" would exclude files with the tag "pdf".
-<strong> Wildcards: </strong>Use the dot (".") as a wildcard for any single character, and ".*" for any sequence of characters.
-<strong> Options: </strong>Various options such as searching only directories, files, case-sensitive search, local search, and more.
-<strong> Path Setting: </strong>Specify the search path or use the current directory as default.
-<strong> Link Creation: </strong>Option to create symbolic links to matching files in a working directory.
-<strong> Tag Management: </strong>Add or delete tags from files.
-<strong> Verbose Mode: </strong>Match directories as well if the filename does not match.
-<strong> Help: </strong>Comprehensive help documentation for usage.
-## How to Use:
-### Search:
+<strong> Tag-based Searching: </strong> Search using tags which are words or word beginnings in any order. <br>
+<strong> Negative Tags: </strong>Using a leading colon with a tag allows for an exclusion search. For instance, searching with the tag ":pdf" would exclude files with the tag "pdf". <br>
+<strong> Wildcards: </strong>Use the dot (".") as a wildcard for any single character, and ".*" for any sequence of characters. <br>
+<strong> Options: </strong>Various options such as searching only directories, files, case-sensitive search, local search, and more. <br>
+<strong> Path Setting: </strong>Specify the search path or use the current directory as default. <br>
+<strong> Link Creation: </strong>Option to create symbolic links to matching files in a working directory. <br>
+<strong> Tag Management: </strong>Add or delete tags from files. <br>
+<strong> Verbose Mode: </strong>Match directories as well if the filename does not match. <br>
+<strong> Help: </strong>Comprehensive help documentation for usage. <br> 
+## How to Use: <br>
+### Search: <br>
 
 <strong> Basic Search:</strong> ```qtag [Tags and Options]``` <br>
 <strong> Exclusion Search:</strong> ```qtag :[Tag to Exclude]``` <br>
