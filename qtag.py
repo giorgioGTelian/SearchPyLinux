@@ -53,6 +53,7 @@ class MyDefaults:
         self.ig = "[\^\$\*\+\?\{\}\[\]\\\|\(\)\.\-/_, 0-9]"
         self.version = 'qtag vers. C.07'
 
+Defaults = MyDefaults()
 
 def begins_uppercase(test):
     if test[0] == test[0].upper():
@@ -586,7 +587,6 @@ def print_debug_info():
     print("new_argv", Defaults.new_argv)
 
 def main():
-    Defaults = MyDefaults()
     get_arguments()
     init_writing()
     print()
