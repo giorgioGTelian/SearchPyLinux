@@ -1,3 +1,4 @@
+import re
 import pytest
 from qtag import scan_all, correct_filename, remove_escapes, try_compile_whole_tag, manage_tag_new, delete_single_tag
 
