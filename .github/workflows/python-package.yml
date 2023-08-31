@@ -38,3 +38,11 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - name: Build and publish 
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: pypi-AgEIcHlwaS5vcmcCJDFhMzM5NGNjLTdkNWEtNDEzYi1hNzA0LWFlMGYyYzE3ZWIyYwACKlszLCIwYzA0ZDlkOC04YmEzLTRmNWUtYjc3Zi1iMzgyYzI5ODllMWYiXQAABiAZG609ZhcFAyTCLw7LY_rm0djeYlcHr_AeAO0TTo1CQw
+      run: |
+        python setup.py sdist bdist_wheel
+        twine upload dist/*
+
