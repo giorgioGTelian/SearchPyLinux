@@ -1,6 +1,6 @@
 # SearchPyLinux qtag version C.07
 
-<a href="https://pypi.org/project/SearchPyLinux/"> ## dowload it directly </a>
+<a href="https://pypi.org/project/SearchPyLinux/"> <h1> dowload it directly </h1> </a>
 
 ## Overview:
 ### qtag is a search tool designed specifically for humans. It allows for searching files and directories based on tags - words or word beginnings - in any order. <br>
